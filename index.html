@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Virtual Guitar | AntiGravity</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/tone"></script>
+</head>
+<body>
+    <div id="app">
+        <div id="start-overlay">
+            <div class="modal">
+                <h1>Virtual Guitar</h1>
+                <p>Experience high-quality acoustic sound.</p>
+                <button id="start-btn">Start Playing</button>
+            </div>
+        </div>
+
+        <div class="guitar-container">
+            <div class="guitar-body">
+                <div class="sound-hole"></div>
+                <div class="fretboard">
+                    <!-- Frets will be generated here or added manually -->
+                    <div class="fret" style="left: 0%;"></div>
+                    <div class="fret" style="left: 8.33%;"></div>
+                    <div class="fret" style="left: 16.66%;"></div>
+                    <div class="fret" style="left: 25%;"></div>
+                    <div class="fret" style="left: 33.33%;"></div>
+                    <div class="fret" style="left: 41.66%;"></div>
+                    <div class="fret" style="left: 50%;"></div>
+                    <div class="fret" style="left: 58.33%;"></div>
+                    <div class="fret" style="left: 66.66%;"></div>
+                    <div class="fret" style="left: 75%;"></div>
+                    <div class="fret" style="left: 83.33%;"></div>
+                    <div class="fret" style="left: 91.66%;"></div>
+                    
+                    <div class="strings">
+                        <div class="string-wrapper" data-note="E4" data-key="1">
+                            <div class="string s1"></div>
+                            <span class="note-label">E</span>
+                        </div>
+                        <div class="string-wrapper" data-note="B3" data-key="2">
+                            <div class="string s2"></div>
+                            <span class="note-label">B</span>
+                        </div>
+                        <div class="string-wrapper" data-note="G3" data-key="3">
+                            <div class="string s3"></div>
+                            <span class="note-label">G</span>
+                        </div>
+                        <div class="string-wrapper" data-note="D3" data-key="4">
+                            <div class="string s4"></div>
+                            <span class="note-label">D</span>
+                        </div>
+                        <div class="string-wrapper" data-note="A2" data-key="5">
+                            <div class="string s5"></div>
+                            <span class="note-label">A</span>
+                        </div>
+                        <div class="string-wrapper" data-note="E2" data-key="6">
+                            <div class="string s6"></div>
+                            <span class="note-label">E</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <p>Click strings or use keys 1-6 to play.</p>
+                <div class="status" id="status">Loading Samples...</div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

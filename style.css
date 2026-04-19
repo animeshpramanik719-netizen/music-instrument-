@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+:root {
+    --fretboard-color: #3d2b1f;
+    --fret-color: #c0c0c0;
+    --string-color: #e0e0e0;
+    --string-glow: #00f2ff;
+    --bg-color: #0d0d0d;
+    --modal-bg: rgba(20, 20, 20, 0.95);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-color);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+#app {
+    width: 100%;
+    max-width: 1000px;
+    padding: 20px;
+    position: relative;
+}
+
+/* Modal Overlay */
+#start-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition: opacity 0.5s ease;
+}
+
+#start-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal {
+    background: var(--modal-bg);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.modal h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #00f2ff, #006aff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+button {
+    background: linear-gradient(45deg, #00f2ff, #006aff);
+    border: none;
+    color: white;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 20px;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
+}
+
+/* Guitar Styles */
+.guitar-container {
+    perspective: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.guitar-body {
+    width: 100%;
+    height: 300px;
+    background: linear-gradient(135deg, #2c1e14 0%, #1a0f0a 100%);
+    border-radius: 40px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.8), inset 0 0 100px rgba(0,0,0,0.5);
+    /* overflow: hidden; */ /* Removed to show labels */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.fretboard {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(to right, #3d2b1f, #4d3b2f, #3d2b1f);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0;
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+}
+
+.sound-hole {
+    position: absolute;
+    left: 20%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, #000 0%, #1a1a1a 70%, #2c1e14 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(0,0,0,0.8), inset 0 0 30px rgba(0,0,0,1);
+    border: 8px solid rgba(255, 255, 255, 0.05);
+    z-index: 0;
+}
+
+/* Wood Grain Effect */
+.fretboard::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png'); /* Subtle texture if it loads */
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.fret {
+    position: absolute;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(to right, #999, #eee, #999);
+    box-shadow: 1px 0 3px rgba(0,0,0,0.5);
+    z-index: 1;
+}
+
+.strings {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    z-index: 2;
+}
+
+.string-wrapper {
+    width: 100%;
+    height: 10px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.string {
+    width: 100%;
+    background: var(--string-color);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    transition: background 0.1s;
+}
+
+/* Varying Thickness for strings */
+.s1 { height: 1px; opacity: 0.8; }
+.s2 { height: 1.5px; opacity: 0.85; }
+.s3 { height: 2px; opacity: 0.9; }
+.s4 { height: 2.5px; opacity: 0.95; }
+.s5 { height: 3px; opacity: 1; }
+.s6 { height: 3.5px; opacity: 1; }
+
+.string-wrapper:hover .string {
+    background: var(--string-glow);
+    box-shadow: 0 0 10px var(--string-glow);
+}
+
+.string-wrapper.playing .string {
+    animation: vibrate 0.1s linear infinite;
+    background: var(--string-glow);
+    box-shadow: 0 0 15px var(--string-glow);
+}
+
+.note-label {
+    position: absolute;
+    left: -30px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: bold;
+}
+
+@keyframes vibrate {
+    0% { transform: translateY(0); }
+    33% { transform: translateY(-1px); }
+    66% { transform: translateY(1px); }
+    100% { transform: translateY(0); }
+}
+
+.controls {
+    margin-top: 40px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.status {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #00f2ff;
+}
